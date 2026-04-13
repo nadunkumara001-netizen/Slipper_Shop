@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WALKA Standard Slippers | Walk in Comfort Every Day</title>
+    <meta name="description" content="WALKA Standard Slippers offers you the best quality, comfortable, and affordable slippers for everyday use.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="#"><h1>WALKA</h1></a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="right-controls">
+            <div id="slTimeDisplay" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light); margin-right: 1.5rem; display: none;"></div>
+            <div class="cart-btn-container" id="cartBtn">
+                <span style="font-size: 1.5rem; cursor: pointer;">🛒</span>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </div>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Walk in Comfort Every Day</h2>
+                <p>Discover our vibrant range of beautiful Boys & Girls Slippers, available in sizes 1 through 9. Perfect for summer days and casual comfort.</p>
+                <a href="#products" class="btn-primary">Shop Now</a>
+            </div>
+            <div class="hero-image">
+                <img src="images/Banner1.png" alt="WALKA Standard Shop Banner">
+            </div>
+        </section>
+
+        <section id="products" class="products-section">
+            <h2 class="section-title">Our Collections</h2>
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be generated dynamically via script.js -->
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2 class="section-title">About Us</h2>
+                <p>At <strong>WALKA Standard Slippers</strong>, we believe every step should feel like walking on clouds. We are dedicated to providing the highest quality footwear at affordable prices.</p>
+                <p>Our handpicked collection emphasizes extreme comfort, durability, and skin-friendly materials, ensuring perfectly rested feet at the end of a long day.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <strong>📍 Location:</strong>
+                        <p>123 Comfort Ave, Colombo, Sri Lanka</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>📞 Phone:</strong>
+                        <p>+94 77 123 4567</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>✉️ Email:</strong>
+                        <p>hello@walka.lk</p>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>WALKA Standard Slippers</h3>
+                <p>Walk in Comfort Every Day</p>
+            </div>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+                <span style="color: rgba(255,255,255,0.2);">|</span>
+                <a href="login.html" style="color: var(--accent-color);">Admin Login</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 WALKA Standard Slippers. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 style="font-size: 1.5rem;">Your Cart</h2>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Dynamically populated via script.js -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalText" style="font-weight: 600; color: var(--accent-color);">LKR 0</span>
+            </div>
+            <a href="checkout.html" class="btn-primary" style="width: 100%; text-align: center; display: block; box-sizing: border-box;">Go to Checkout</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

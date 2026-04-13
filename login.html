@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | WALKA Standard Slippers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
+        }
+        .login-box h2 {
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 1.1rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .login-form input:focus {
+            border-color: var(--accent-color);
+        }
+        #loginError {
+            color: #ff4d4f;
+            display: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .btn-full {
+            width: 100%;
+            padding: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>WALKA</h1></a>
+        </div>
+        <div class="right-controls">
+            <a href="index.html" class="theme-toggle" style="font-size: 1rem; font-weight: 600;">Back to Store</a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main class="login-container">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <p id="loginError">Invalid username or password.</p>
+            <form id="loginForm" class="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary btn-full">Login</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginForm = document.getElementById('loginForm');
+            const loginError = document.getElementById('loginError');
+
+            // Theme logic for login page
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const rootEl = document.documentElement;
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                rootEl.setAttribute('data-theme', 'dark');
+                if (themeToggleBtn) themeToggleBtn.innerText = '☀️';
+            }
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const currentTheme = rootEl.getAttribute('data-theme');
+                    if (currentTheme === 'dark') {
+                        rootEl.setAttribute('data-theme', 'light');
+                        themeToggleBtn.innerText = '🌙';
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        rootEl.setAttribute('data-theme', 'dark');
+                        themeToggleBtn.innerText = '☀️';
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const user = document.getElementById('username').value;
+                    const pass = document.getElementById('password').value;
+
+                    if (user === 'admin' && pass === 'admin123') {
+                        sessionStorage.setItem('isAdmin', 'true');
+                        window.location.href = 'admin.html';
+                    } else {
+                        loginError.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | WALKA Standard Slippers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .admin-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+            transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-row input, .form-row textarea {
+            flex: 1;
+        }
+        .admin-table-container {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--secondary-color);
+            transition: border-color 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+        }
+        th {
+            background-color: var(--bg-color);
+            font-weight: 600;
+        }
+        .btn-delete {
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-delete:hover {
+            background: #d9363e;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            .admin-container {
+                padding: 2rem 5%;
+            }
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            .admin-header > div {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .btn-delete {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>WALKA Admin</h1></a>
+        </div>
+        <div class="right-controls">
+            <div id="slTimeDisplay" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light); margin-right: 1.5rem; display: none;"></div>
+            <a href="index.html" class="theme-toggle" style="font-size: 1rem; font-weight: 600;">Back to Store</a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main class="admin-container">
+        <div class="admin-header">
+            <div style="display: flex; gap: 2rem; align-items: baseline;">
+                <h2>Admin Dashboard</h2>
+                <div class="admin-tabs" style="display: flex; gap: 1rem;">
+                    <button class="btn-primary" id="tabInventory" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Inventory</button>
+                    <button class="btn-primary" id="tabOrders" style="background: var(--text-dark); padding: 0.5rem 1.5rem; font-size: 0.9rem;">Orders</button>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn-delete">Logout</button>
+        </div>
+
+        <div id="inventorySection">
+            <div class="admin-form contact-form">
+            <h3 id="formTitle" style="margin-bottom:1rem;">Add New Slipper</h3>
+            <form id="addProductForm">
+                <input type="hidden" id="editProdId" value="">
+                <div class="form-row">
+                    <input type="text" id="prodName" placeholder="Product Name (e.g., Red Flip-Flop)" required>
+                    <input type="number" id="prodPrice" placeholder="Price in LKR" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="prodDesc" placeholder="Description" required>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
+                        <input type="text" id="prodImg" placeholder="Image Path (e.g., images/floral-blue.png)">
+                        <input type="file" id="prodImgFile" accept="image/*" style="font-family: inherit; font-size: 0.9rem; padding: 0.5rem;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <input type="number" id="prodDiscount" placeholder="Discount Percentage (e.g., 20) (Optional)" min="0" max="100">
+                </div>
+                <div>
+                    <button type="submit" id="submitBtn" class="btn-primary">Add Product</button>
+                    <button type="button" id="cancelEditBtn" class="btn-delete" style="display:none; margin-left:1rem; padding: 0.9rem 2.2rem; border-radius: 30px; font-weight: 600;">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="admin-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price (LKR)</th>
+                        <th>Discount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <!-- Loaded dynamically via admin.js -->
+                </tbody>
+            </table>
+        </div>
+        </div> <!-- End inventory section -->
+
+        <div id="ordersSection" style="display: none;">
+            <div id="editOrderFormContainer" class="admin-form contact-form" style="display: none;">
+                <h3 style="margin-bottom:1rem;">Edit Customer Details</h3>
+                <form id="editOrderForm">
+                    <input type="hidden" id="editOrderId" value="">
+                    <div class="form-row">
+                        <input type="text" id="editOrderName" placeholder="Customer Name" required>
+                        <input type="email" id="editOrderEmail" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-row" style="margin-top: 1rem;">
+                        <input type="tel" id="editOrderPhone" placeholder="Phone Number" required>
+                        <textarea id="editOrderAddress" placeholder="Delivery Address" rows="2" required></textarea>
+                    </div>
+                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                        <button type="submit" class="btn-primary" style="flex: 1;">Save Details</button>
+                        <button type="button" id="cancelOrderEditBtn" class="btn-delete" style="flex: 1; background: var(--bg-color); color: var(--text-dark); box-shadow: none;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total (LKR)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Loaded dynamically via admin.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
